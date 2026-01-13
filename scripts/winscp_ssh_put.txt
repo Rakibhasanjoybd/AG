@@ -1,0 +1,11 @@
+; WinSCP script using SFTP (SSH) with private key
+; Edit LocalPath and RemotePath before running
+
+option batch abort
+option confirm off
+
+open sftp://amlfrogb@ftp.agcolimited.uk/ -hostkey="" -privatekey="C:\Users\LS WHOLESALE COMPANY\Downloads\id_rsa"
+lcd "D:\\xampp\\htdocs\\AGCO"
+cd /home/amlfrogb/agcolimited.uk/agco
+put -r *
+exit

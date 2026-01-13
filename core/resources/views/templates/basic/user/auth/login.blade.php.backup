@@ -1,0 +1,292 @@
+@php
+    $loginCaption = getContent('login.content',true);
+@endphp
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="theme-color" content="#52006A">
+    <title>{{ $general->siteName(__($pageTitle ?? 'লগইন')) }}</title>
+    @include('partials.seo')
+    <link href="{{ asset('assets/global/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/global/css/all.min.css') }}" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { height: 100%; }
+        body {
+            font-family: 'Noto Sans Bengali', sans-serif;
+            background: linear-gradient(135deg, #52006A 0%, #3d0050 50%, #2a0038 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .login-container {
+            width: 100%;
+            max-width: 420px;
+            background: #fff;
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        .login-header {
+            background: linear-gradient(135deg, #CD113B 0%, #a00d2e 100%);
+            padding: 30px 24px;
+            text-align: center;
+            position: relative;
+        }
+        .login-header::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 40px;
+            background: #fff;
+            border-radius: 50%;
+        }
+        .logo-wrap {
+            width: 70px;
+            height: 70px;
+            background: #fff;
+            border-radius: 18px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+        .logo-wrap img {
+            width: 45px;
+            height: auto;
+        }
+        .login-header h1 {
+            color: #fff;
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        .login-header p {
+            color: rgba(255,255,255,0.85);
+            font-size: 13px;
+        }
+        
+        .login-body {
+            padding: 40px 28px 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+        .input-wrap {
+            position: relative;
+        }
+        .input-wrap i {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #CD113B;
+            font-size: 16px;
+        }
+        .input-wrap input {
+            width: 100%;
+            padding: 14px 16px 14px 48px;
+            border: 2px solid #e8e8e8;
+            border-radius: 12px;
+            font-size: 15px;
+            font-family: inherit;
+            transition: all 0.3s;
+        }
+        .input-wrap input:focus {
+            outline: none;
+            border-color: #CD113B;
+            box-shadow: 0 0 0 4px rgba(205,17,59,0.1);
+        }
+        
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: #555;
+        }
+        .remember-me input {
+            width: 18px;
+            height: 18px;
+            accent-color: #CD113B;
+        }
+        .forgot-link {
+            font-size: 13px;
+            color: #CD113B;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .forgot-link:hover {
+            color: #a00d2e;
+            text-decoration: underline;
+        }
+        
+        .btn-login {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #CD113B 0%, #a00d2e 100%);
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 700;
+            font-family: inherit;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.3s;
+            box-shadow: 0 8px 25px rgba(205,17,59,0.35);
+        }
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(205,17,59,0.45);
+        }
+        
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 24px 0;
+        }
+        .divider::before, .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #e0e0e0;
+        }
+        .divider span {
+            padding: 0 15px;
+            color: #999;
+            font-size: 12px;
+        }
+        
+        .register-link {
+            text-align: center;
+            font-size: 14px;
+            color: #666;
+        }
+        .register-link a {
+            color: #52006A;
+            font-weight: 700;
+            text-decoration: none;
+        }
+        .register-link a:hover {
+            text-decoration: underline;
+        }
+        
+        .login-footer {
+            text-align: center;
+            padding: 0 28px 24px;
+        }
+        .back-home {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #999;
+            font-size: 13px;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .back-home:hover {
+            color: #52006A;
+        }
+        
+        /* Captcha styling */
+        .captcha-wrap {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-header">
+            <div class="logo-wrap">
+                <img src="{{ getImage(getFilePath('logoIcon') .'/logo.png') }}" alt="{{ $general->site_name ?? 'AGCO' }}">
+            </div>
+            <h1>{{ __(@$loginCaption->data_values->heading ?? 'স্বাগতম!') }}</h1>
+            <p>আপনার অ্যাকাউন্টে লগইন করুন</p>
+        </div>
+        
+        <div class="login-body">
+            <form class="verify-gcaptcha" action="{{ route('user.login') }}" method="post">
+                @csrf
+                
+                <div class="form-group">
+                    <label>@lang('ইউজারনেম বা ইমেইল')</label>
+                    <div class="input-wrap">
+                        <i class="fas fa-user"></i>
+                        <input type="text" name="username" placeholder="@lang('ইউজারনেম বা ইমেইল লিখুন')" required value="{{ old('username') }}">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>@lang('পাসওয়ার্ড')</label>
+                    <div class="input-wrap">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" name="password" placeholder="@lang('পাসওয়ার্ড লিখুন')" required>
+                    </div>
+                </div>
+                
+                <div class="captcha-wrap">
+                    <x-captcha></x-captcha>
+                </div>
+                
+                <div class="form-options">
+                    <label class="remember-me">
+                        <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}>
+                        @lang('মনে রাখুন')
+                    </label>
+                    <a href="{{ route('user.password.request') }}" class="forgot-link">@lang('পাসওয়ার্ড ভুলে গেছেন?')</a>
+                </div>
+                
+                <button type="submit" class="btn-login">
+                    <i class="fas fa-sign-in-alt"></i>
+                    @lang('লগইন করুন')
+                </button>
+            </form>
+            
+            <div class="divider"><span>অথবা</span></div>
+            
+            <p class="register-link">
+                @lang('নতুন ইউজার?') <a href="{{ route('user.register') }}">@lang('রেজিস্টার করুন')</a>
+            </p>
+        </div>
+        
+        <div class="login-footer">
+            <a href="{{ route('home') }}" class="back-home">
+                <i class="fas fa-arrow-left"></i>
+                @lang('হোম পেজে ফিরুন')
+            </a>
+        </div>
+    </div>
+
+    <script src="{{ asset('assets/global/js/jquery-3.6.0.min.js') }}"></script>
+    @include('partials.notify')
+</body>
+</html>

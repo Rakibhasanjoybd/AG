@@ -1,0 +1,6 @@
+open ftp://agco@agcolimited.uk:R@kib16546682@server204.web-hosting.com
+cd agcolimited.uk/agco
+lcd D:\xampp\htdocs\AGCO\core
+synchronize remote -delete
+put .env.production .env
+exit

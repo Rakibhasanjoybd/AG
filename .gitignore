@@ -1,0 +1,26 @@
+# Large files
+install.zip
+*.zip
+node_modules/
+.env
+.env.local
+
+# Laravel
+storage/
+bootstrap/cache/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Caches
+*.log
+
+core/vendor/
+node_modules/

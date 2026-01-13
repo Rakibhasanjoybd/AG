@@ -1,0 +1,46 @@
+{
+    "name": "AGCO Finance",
+    "short_name": "AGCO",
+    "description": "বিশ্বস্ত আয়ের প্ল্যাটফর্ম - প্রতিদিন টাস্ক করে আয় করুন",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#0F743C",
+    "theme_color": "#0F743C",
+    "orientation": "portrait",
+    "scope": "/",
+    "lang": "bn",
+    "categories": ["finance", "business"],
+    "icons": [
+        {
+            "src": "/assets/images/logoIcon/logo.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "/assets/images/logoIcon/logo.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ],
+    "screenshots": [],
+    "shortcuts": [
+        {
+            "name": "আয় করুন",
+            "short_name": "আয়",
+            "description": "PTC টাস্ক দেখুন",
+            "url": "/user/ptc",
+            "icons": [{ "src": "/assets/images/logoIcon/logo.png", "sizes": "96x96" }]
+        },
+        {
+            "name": "জমা করুন",
+            "short_name": "জমা",
+            "description": "টাকা জমা দিন",
+            "url": "/user/deposit",
+            "icons": [{ "src": "/assets/images/logoIcon/logo.png", "sizes": "96x96" }]
+        }
+    ],
+    "related_applications": [],
+    "prefer_related_applications": false
+}

@@ -1,0 +1,32 @@
+Database Import Instructions for AGCO Application
+===============================================
+
+Server Configuration:
+- Host: localhost:3306
+- Database: amacftng_agco
+
+Steps to Import the Database:
+
+1. Create the database first:
+   CREATE DATABASE amacftng_agco;
+
+2. Import the SQL file using MySQL command line:
+   mysql -u root -p amacftng_agco < agcoweb.sql
+
+3. Or using phpMyAdmin:
+   - Open phpMyAdmin (http://localhost/phpmyadmin)
+   - Create database "amacftng_agco" if it doesn't exist
+   - Select the database
+   - Click "Import" tab
+   - Choose "agcoweb.sql" file
+   - Click "Go"
+
+4. Verify the import by checking tables:
+   SHOW TABLES FROM amacftng_agco;
+
+Default Admin Account:
+- Email: admin@gmail.com
+- Username: admin
+- Password: (hashed in database)
+
+The SQL file has been pre-configured with the correct database name "amacftng_agco" for your server setup.

@@ -1,0 +1,6 @@
+# WinSCP script to upload a file via explicit FTPS
+# Note: username and password URL-encoded because username contains '@' and password contains '@'
+# Replace the local and remote paths below before running.
+open ftpes://agco%40agcolimited.uk:R%40kib16546682@ftp.agcolimited.uk:21/ -explicit -passive=on
+put "C:\path\to\local\file.txt" /remote/path/
+exit
