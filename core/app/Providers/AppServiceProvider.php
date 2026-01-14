@@ -51,7 +51,11 @@ class AppServiceProvider extends ServiceProvider
         $activeTemplate = activeTemplate();
         $viewShare['activeTemplate'] = $activeTemplate;
         $viewShare['activeTemplateTrue'] = activeTemplate(true);
-        $viewShare['language'] = Language::all();
+        try {
+            $viewShare['language'] = Language::all();
+        } catch (Throwable $e) {
+            $viewShare['language'] = collect(); // Empty collection if table doesn't exist
+        }
         $viewShare['emptyMessage'] = 'Data not found';
         view()->share($viewShare);
 

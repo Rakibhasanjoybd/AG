@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::table('general_settings', function (Blueprint $table) {
             if (!Schema::hasColumn('general_settings', 'wallet_header_slideshow')) {
-                $table->tinyInteger('wallet_header_slideshow')->default(1)->after('wallet_image_effect');
+                $table->tinyInteger('wallet_header_slideshow')->default(1);
             }
         });
     }

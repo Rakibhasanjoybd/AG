@@ -8,14 +8,16 @@ return new class extends Migration
 {
     public function up()
     {
-        Schema::create('announcements', function (Blueprint $table) {
-            $table->id();
-            $table->string('title');
-            $table->text('content');
-            $table->tinyInteger('status')->default(1);
-            $table->integer('scroll_speed')->default(50);
-            $table->timestamps();
-        });
+        if (!Schema::hasTable('announcements')) {
+            Schema::create('announcements', function (Blueprint $table) {
+                $table->id();
+                $table->string('title');
+                $table->text('content');
+                $table->tinyInteger('status')->default(1);
+                $table->integer('scroll_speed')->default(50);
+                $table->timestamps();
+            });
+        }
     }
 
     public function down()

@@ -10,10 +10,10 @@ return new class extends Migration
     {
         Schema::table('general_settings', function (Blueprint $table) {
             if (!Schema::hasColumn('general_settings', 'wallet_images')) {
-                $table->text('wallet_images')->nullable()->after('ads_setting');
+                $table->text('wallet_images')->nullable();
             }
             if (!Schema::hasColumn('general_settings', 'wallet_image_effect')) {
-                $table->string('wallet_image_effect', 50)->nullable()->after('wallet_images');
+                $table->string('wallet_image_effect', 50)->nullable();
             }
         });
     }

@@ -30,20 +30,20 @@ function clean($html)
     if (empty($html)) {
         return '';
     }
-    
+
     // List of allowed tags
     $allowedTags = '<p><br><b><i><u><strong><em><a><ul><ol><li><img><h1><h2><h3><h4><h5><h6><div><span><table><tr><td><th><thead><tbody>';
-    
+
     // Strip all tags except allowed ones
     $cleaned = strip_tags($html, $allowedTags);
-    
+
     // Remove dangerous attributes (onclick, onerror, javascript:, etc.)
     $cleaned = preg_replace('/\s*on\w+\s*=\s*["\'][^"\']*["\']/i', '', $cleaned);
     $cleaned = preg_replace('/\s*on\w+\s*=\s*[^\s>]*/i', '', $cleaned);
     $cleaned = preg_replace('/javascript\s*:/i', '', $cleaned);
     $cleaned = preg_replace('/vbscript\s*:/i', '', $cleaned);
     $cleaned = preg_replace('/data\s*:/i', '', $cleaned);
-    
+
     return $cleaned;
 }
 
@@ -83,7 +83,7 @@ function getNumber($length = 8)
 function activeTemplate($asset = false)
 {
     $general = gs();
-    $template = $general->active_template;
+    $template = $general->active_template ?? 'default';
     if ($asset) return 'assets/templates/' . $template . '/';
     return 'templates.' . $template . '.';
 }
@@ -91,7 +91,7 @@ function activeTemplate($asset = false)
 function activeTemplateName()
 {
     $general = gs();
-    $template = $general->active_template;
+    $template = $general->active_template ?? 'default';
     return $template;
 }
 
@@ -654,8 +654,62 @@ function gs()
 {
     $general = Cache::get('GeneralSetting');
     if (!$general) {
-        $general = GeneralSetting::first();
-        Cache::put('GeneralSetting', $general);
+        try {
+            $general = GeneralSetting::first();
+            Cache::put('GeneralSetting', $general);
+        } catch (\Exception $e) {
+            // Return a default object if table doesn't exist
+            $general = (object) [
+                'id' => 1,
+                'force_ssl' => 0,
+                'sitename' => 'AGCO',
+                'cur_text' => 'USD',
+                'cur_sym' => '$',
+                'timezone' => 'UTC',
+                'bcp' => 0,
+                'registration' => 1,
+                'ev' => 0,
+                'email_verification' => 0,
+                'sv' => 0,
+                'sms_verification' => 0,
+                'sn' => 1,
+                'sms_notification' => 1,
+                'en' => 1,
+                'email_notification' => 1,
+                'pn' => 1,
+                'push_notification' => 1,
+                'strong_pass' => 0,
+                'agent' => 0,
+                'blog' => 0,
+                'deposit' => 1,
+                'withdraw' => 1,
+                'invest' => 0,
+                'transfer' => 0,
+                'trade' => 0,
+                'kyc' => 0,
+                'google_recaptcha' => 0,
+                'social_login' => 0,
+                'cookie' => 1,
+                'forum' => 0,
+                'knowledge_base' => 0,
+                'stack_exchange' => 0,
+                'support_ticket' => 1,
+                'crons' => 0,
+                'maintenance_mode' => 0,
+                'secure_socket' => 0,
+                'allow_signup' => 1,
+                'allow_kyc_during_signup' => 0,
+                'multilingual' => 0,
+                'language' => 'en',
+                'theme' => 'default',
+                'modules' => null,
+                'version' => '1.0',
+                'build' => '1',
+                'last_update' => null,
+                'created_at' => now(),
+                'updated_at' => now()
+            ];
+        }
     }
     return $general;
 }

@@ -8,7 +8,8 @@ return new class extends Migration
 {
     public function up()
     {
-        Schema::create('video_tutorials', function (Blueprint $table) {
+        if (!Schema::hasTable('video_tutorials')) {
+            Schema::create('video_tutorials', function (Blueprint $table) {
             $table->id();
             $table->string('title');
             $table->string('thumbnail')->nullable();
@@ -18,7 +19,8 @@ return new class extends Migration
             $table->integer('order')->default(0);
             $table->tinyInteger('status')->default(1);
             $table->timestamps();
-        });
+            });
+        }
     }
 
     public function down()

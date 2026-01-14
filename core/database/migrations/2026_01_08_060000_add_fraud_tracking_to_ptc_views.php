@@ -14,14 +14,26 @@ return new class extends Migration
     public function up()
     {
         Schema::table('ptc_views', function (Blueprint $table) {
-            $table->string('device_fingerprint', 64)->nullable()->after('view_date');
-            $table->integer('watch_time')->nullable()->after('device_fingerprint');
-            $table->tinyInteger('tab_switches')->default(0)->after('watch_time');
-            $table->string('ip_address', 45)->nullable()->after('tab_switches');
+            if (!Schema::hasColumn('ptc_views', 'device_fingerprint')) {
+                $table->string('device_fingerprint', 64)->nullable()->after('view_date');
+            }
+            if (!Schema::hasColumn('ptc_views', 'watch_time')) {
+                $table->integer('watch_time')->nullable()->after('device_fingerprint');
+            }
+            if (!Schema::hasColumn('ptc_views', 'tab_switches')) {
+                $table->tinyInteger('tab_switches')->default(0)->after('watch_time');
+            }
+            if (!Schema::hasColumn('ptc_views', 'ip_address')) {
+                $table->string('ip_address', 45)->nullable()->after('tab_switches');
+            }
 
             // Index for fraud detection queries
-            $table->index('device_fingerprint');
-            $table->index('ip_address');
+            if (Schema::hasColumn('ptc_views', 'device_fingerprint')) {
+                $table->index('device_fingerprint');
+            }
+            if (Schema::hasColumn('ptc_views', 'ip_address')) {
+                $table->index('ip_address');
+            }
         });
     }
 
